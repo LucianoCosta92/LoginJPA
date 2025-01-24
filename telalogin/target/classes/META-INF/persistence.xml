@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="dbusuario" transaction-type="RESOURCE_LOCAL">
+	<properties>
+		<property name="jakarta.persistence.jdbc.url"
+			value="jdbc:mysql://localhost/dbusuario?useSSL=false&amp;serverTimezone=UTC" />
+		<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+		<property name="jakarta.persistence.jdbc.user" value="root" />
+		<property name="jakarta.persistence.jdbc.password" value="Kamenriderv3" />
+		
+		<!-- cria automaticamente banco de dados e atualiza cada vez que for rodado -->
+		<property name="hibernate.hbm2ddl.auto" value="update" /> <!-- drop-and-create: cria e destroi schema -->
+		
+		<!-- Executa um arquivo SQL para uma carga de dados na inicialização da factory do JPA -->
+		<property name="jakarta.persistence.sql-load-script-source" value="META-INF/script.sql" />
+		
+		<!-- https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/dialect/package-summary.html -->
+		<property name="hibernate.dialect" 	value="org.hibernate.dialect.MySQLDialect" />
+		
+		<!-- Mostra a consulta SQL na saída -->
+		<property name="hibernate.show_sql" value="true" />
+		<property name="hibernate.format_sql" value="true" />
+	</properties>
+	</persistence-unit>
+</persistence>
