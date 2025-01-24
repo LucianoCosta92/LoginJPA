@@ -66,5 +66,9 @@ public class UsuarioDAO {
 		
 	}
 	
+	public void limpar() {
+		
+	}
+	
 	
 }

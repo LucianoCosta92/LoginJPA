@@ -62,12 +62,18 @@ public class LoginView extends JFrame {
 		JButton btnEntrar = new JButton("ENTRAR");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					UsuarioController controller = new UsuarioController();
-					controller.loginUsuario(LoginView.this);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Erro: " + e);
+				if (textUsuario.getText().matches("") || textSenha.getText().matches("")) {
+					JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!");
+				} else {
+					try {
+						UsuarioController controller = new UsuarioController();
+						controller.loginUsuario(LoginView.this);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Erro: " + e);
+					}
 				}
+				textUsuario.setText(null);
+				textSenha.setText(null);
 			}
 		});
 		btnEntrar.setBounds(197, 175, 96, 25);

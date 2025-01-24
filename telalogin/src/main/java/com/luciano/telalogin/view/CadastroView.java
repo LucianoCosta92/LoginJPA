@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.luciano.telalogin.controller.UsuarioController;
 
+import jakarta.transaction.Transactional.TxType;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -79,14 +81,20 @@ public class CadastroView extends JFrame {
 		
 		JButton btnCadastroUsuario = new JButton("CADASTRAR");
 		btnCadastroUsuario.addActionListener(e -> {
-			try {
-				UsuarioController cadastro = new UsuarioController();
-				cadastro.cadastroUsuario(this);
-			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(null, "Erro ao tentar cadastrar: " + e);
+			if (textNomeCadastro.getText().matches("")||
+					textEmailCadastro.getText().matches("") ||
+					textSenhaCadastro.getText().matches("")) {
+				JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!");
+			} else {
+				try {
+					UsuarioController cadastro = new UsuarioController();
+					cadastro.cadastroUsuario(this);
+					JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso!");
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar: " + e2);
+				}
+				dispose(); // fecha a janela
 			}
-			JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
-			dispose(); // fecha a janela
 		});
 		btnCadastroUsuario.setBounds(137, 223, 115, 25);
 		contentPane.add(btnCadastroUsuario);
