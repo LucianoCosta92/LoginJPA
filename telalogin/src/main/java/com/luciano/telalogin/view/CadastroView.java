@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.luciano.telalogin.controller.UsuarioController;
 
-import jakarta.transaction.Transactional.TxType;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
