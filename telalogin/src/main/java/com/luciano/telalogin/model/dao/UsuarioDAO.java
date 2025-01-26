@@ -18,6 +18,10 @@ public class UsuarioDAO {
 	
 	public void cadastrarUsuario(String nome, String email, String senha) {
 		EntityManager em = JpaUtil.getEntityManager();
+		nome = nome.trim().toLowerCase();
+		email = email.trim().toLowerCase();
+		senha = senha.trim().toLowerCase();
+		
 		try {
 			String senhaEncriptada = encripta(senha);
 			
@@ -31,6 +35,8 @@ public class UsuarioDAO {
 			
 			em.persist(usuario);
 			tx.commit();
+			
+			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		} catch (PersistenceException e) {
 			JOptionPane.showMessageDialog(null, "Erro: " + e);
 		} finally {
@@ -42,11 +48,10 @@ public class UsuarioDAO {
 	
 	public void login(String email, String senha) {
 		EntityManager em = JpaUtil.getEntityManager();
+		email = email.trim().toLowerCase();
+		senha = senha.trim().toLowerCase();
 		
 		try {
-			email = email.trim().toLowerCase();
-			senha = senha.trim().toLowerCase();
-			
 			Query query = em.createQuery("select u from Usuario u where u.email = :email").setParameter("email", email);
 			System.out.println("\nEmail pesquisado: " + email);
 			@SuppressWarnings("unchecked")
