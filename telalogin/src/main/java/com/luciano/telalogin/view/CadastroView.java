@@ -88,9 +88,8 @@ public class CadastroView extends JFrame {
 				try {
 					UsuarioController cadastro = new UsuarioController();
 					cadastro.cadastroUsuario(this);
-					// JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso!");
 				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar: " + e2);
+					JOptionPane.showMessageDialog(rootPane, "Erro: " + e2);
 				}
 				dispose(); // fecha a janela
 			}

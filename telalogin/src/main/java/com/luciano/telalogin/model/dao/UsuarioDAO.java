@@ -1,6 +1,5 @@
 package com.luciano.telalogin.model.dao;
 
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -12,7 +11,6 @@ import com.luciano.telalogin.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.Query;
 
 public class UsuarioDAO {
 	
@@ -38,7 +36,7 @@ public class UsuarioDAO {
 			
 			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		} catch (PersistenceException e) {
-			JOptionPane.showMessageDialog(null, "Erro: " + e);
+			JOptionPane.showMessageDialog(null, "Erro ao tentar cadastrar: " + e);
 		} finally {
 			if (em.isOpen()) {
 				em.close();
@@ -52,13 +50,9 @@ public class UsuarioDAO {
 		senha = senha.trim().toLowerCase();
 		
 		try {
-			Query query = em.createQuery("select u from Usuario u where u.email = :email").setParameter("email", email);
-			System.out.println("\nEmail pesquisado: " + email);
-			@SuppressWarnings("unchecked")
-			List<Usuario> resultados = query.getResultList();
-			
-			if (!resultados.isEmpty()) {
-				Usuario usuario = resultados.get(0);
+			Usuario usuario = em.find(Usuario.class, email);
+			// System.out.println("\nEmail pesquisado: " + usuario.getEmail());
+			if (usuario != null) {
 				String senhaBanco  = usuario.getSenha();
 				boolean verifica = verificaSenha(senha, senhaBanco);
 				if (verifica) {
@@ -76,7 +70,6 @@ public class UsuarioDAO {
 				em.close();
 			}
 		}
-		
 	}
 	
 	private static String encripta(String senhaCripto) {

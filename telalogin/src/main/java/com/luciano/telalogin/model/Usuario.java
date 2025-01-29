@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -15,14 +13,10 @@ import jakarta.persistence.Table;
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private String email;
 	
 	@Column(length = 60, nullable = false)
 	private String nome;
-	
-	@Column(unique = true, length = 60, nullable = false)
-	private String email;
 	
 	@Column(length = 60, nullable = false)
 	private String senha;
@@ -35,20 +29,6 @@ public class Usuario {
 		super();
 		this.email = email;
 		this.senha = senha;
-	}
-	
-	public void cadastrar(String nome, String email, String senha) {
-		this.email = email;
-		this.senha = senha;
-		this.nome = nome;
-	}
-	
-	public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getNome() {
@@ -77,7 +57,7 @@ public class Usuario {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, email);
+		return Objects.hash(email);
 	}
 
 	@Override
@@ -89,8 +69,10 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(codigo, other.codigo) && Objects.equals(email, other.email);
+		return Objects.equals(email, other.email);
 	}
+
+	
 
 	
 	
